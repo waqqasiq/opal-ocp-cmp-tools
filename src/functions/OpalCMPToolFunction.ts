@@ -133,8 +133,8 @@ export class OpalCMPToolFunction extends Function {
       }
 
       const brief = await getTaskDetailsFromCMP(task_id, authData);
+      logger.info('Extracted brief data from CMP ', brief);
       return { brief };
-
     } catch (error: any) {
       console.error('Error fetching CMP task brief:', error.message);
       throw new Error('Failed to fetch CMP task brief');
