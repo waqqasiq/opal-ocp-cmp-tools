@@ -12,7 +12,7 @@ interface OptiAuthData {
     instance_id: string;
     customer_id: string;
     product_sku: string;
-  }
+  };
 }
 
 function generateNumericId() {
@@ -42,6 +42,8 @@ export const getTaskDetailsFromCMP = async (
     const url = `${CMP_BASE_URL}/v3/tasks/${taskId}/brief`;
 
     const res = await axios.get(url, { headers });
+
+    console.log('res.data ', res.data);
     return res.data;
   } catch (error: any) {
     console.error(`Failed to get task ${taskId}`, error.message);

@@ -7,8 +7,7 @@ import {
   logger,
   Request,
   storage,
-  SubmittedFormData,
-  functions
+  SubmittedFormData
 } from '@zaiusinc/app-sdk';
 // import { AuthSection, Token } from '../data/data';
 

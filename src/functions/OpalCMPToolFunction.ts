@@ -16,7 +16,7 @@ interface OptiAuthData {
     instance_id: string;
     customer_id: string;
     product_sku: string;
-  }
+  };
 }
 
 // Define Opal tool metadata  - list of tools and their parameters
