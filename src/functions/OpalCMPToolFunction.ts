@@ -88,7 +88,7 @@ export class OpalCMPToolFunction extends Function {
 
       const params = this.extractParameters() as TaskBriefParameters;
       const authData = this.extractAuthData() as OptiAuthData;
-      const response = this.getTaskBriefDetails(params, authData);
+      const response = await this.getTaskBriefDetails(params, authData);
       return new Response(200, response);
     } else {
       return new Response(400, 'Invalid path');
