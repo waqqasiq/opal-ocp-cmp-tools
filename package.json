@@ -1,5 +1,5 @@
 {
-  "name": "opal_tool_sample_app",
+  "name": "cmp_library_plan_opal_tool",
   "version": "1.0.0-dev.1",
   "main": "dist/index.js",
   "license": "UNLICENSED",

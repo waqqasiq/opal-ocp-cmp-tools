@@ -1,19 +1,22 @@
-import { logger, Function, Response, storage } from '@zaiusinc/app-sdk';
+import { logger, Function, Response } from '@zaiusinc/app-sdk';
 import { getTaskDetailsFromCMP } from '../cmp';
 // import { AuthSection } from '../data/data';
 
-// Define interfaces for the parameters of each function
-interface GreetingParameters {
-  name: string;
-  language?: string;
-}
-
-interface DateParameters {
-  format?: string;
-}
 
 interface TaskBriefParameters {
   task_id: string;
+}
+interface OptiAuthData {
+  provider: string;
+  credentials: {
+    token_type: string;
+    access_token: string;
+    org_sso_id: string;
+    user_id: string;
+    instance_id: string;
+    customer_id: string;
+    product_sku: string;
+  }
 }
 
 // Define Opal tool metadata  - list of tools and their parameters
@@ -31,22 +34,15 @@ const discoveryPayload = {
         }
       ],
       'endpoint': '/tools/get-task-brief',
-      'http_method': 'POST'
+      'http_method': 'POST',
+      'auth_requirements': [
+        {
+          'provider': 'OptiID',
+          'scope_bundle': 'default',
+          'required': true
+        }
+      ]
     }
-    // {
-    //   'name': 'todays-date',
-    //   'description': 'Returns today\'s date in the specified format',
-    //   'parameters': [
-    //     {
-    //       'name': 'format',
-    //       'type': 'string',
-    //       'description': 'Date format (defaults to ISO format)',
-    //       'required': false
-    //     }
-    //   ],
-    //   'endpoint': '/tools/todays-date',
-    //   'http_method': 'POST'
-    // }
   ]
 };
 
@@ -91,7 +87,8 @@ export class OpalCMPToolFunction extends Function {
       console.log('Request headers:', this.request.headers);
 
       const params = this.extractParameters() as TaskBriefParameters;
-      const response = this.getTaskBriefDetails(params, this.request.headers);
+      const authData = this.extractAuthData() as OptiAuthData;
+      const response = this.getTaskBriefDetails(params, authData);
       return new Response(200, response);
     } else {
       return new Response(400, 'Invalid path');
@@ -111,28 +108,36 @@ export class OpalCMPToolFunction extends Function {
     }
   }
 
+  private extractAuthData() {
+    // Extract auth data from the request headers
+    if (this.request.bodyJSON && this.request.bodyJSON.auth) {
+      // Standard format: { "parameters": { ... } }
+      logger.info('Extracted authData from \'auth\' key:', this.request.bodyJSON.auth);
+      return this.request.bodyJSON.auth;
+    } else {
+      // Fallback for direct testing: { "name": "value" }
+      logger.warn('\'auth\' key not found in request body. Using body directly.');
+      return this.request.bodyJSON;
+    }
+  }
+
   /**
    * The logic of the tool goes here.
    */
-  /**
-   * The logic of the tool goes here.
-   */
-  private async getTaskBriefDetails(parameters: TaskBriefParameters, authData: any) {
+  private async getTaskBriefDetails(parameters: TaskBriefParameters, authData: OptiAuthData) {
     const { task_id } = parameters;
 
     try {
       if (!task_id) {
-        throw new Error("Missing required parameter: task_id");
+        throw new Error('Missing required parameter: task_id');
       }
 
       const brief = await getTaskDetailsFromCMP(task_id, authData);
       return { brief };
 
     } catch (error: any) {
-      console.error("Error fetching CMP task brief:", error.message);
-      throw new Error("Failed to fetch CMP task brief");
+      console.error('Error fetching CMP task brief:', error.message);
+      throw new Error('Failed to fetch CMP task brief');
     }
   }
-
-
 }
