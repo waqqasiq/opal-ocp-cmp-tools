@@ -100,13 +100,16 @@ ocp app register
 
 - Install library dependency:
   ```sh
-  ocp directory install cmp_library_plan_opal_tool@1.0.0-dev.12 2MGXhHri0kDvBLIYLjh8gw
+  ocp directory install <YOUR_APP_ID>@<YOUR_APP_VERSION> <PUBLIC_KEY_OCP_ACCOUNT>
   ```
 
 - View logs:
   ```sh
   ocp app logs --appId=<YOUR_APP_ID> --trackerId=<PUBLIC_KEY_OCP_ACCOUNT>
   ```
+
+👉 Note:  
+`<PUBLIC_KEY_OCP_ACCOUNT>` - is the private API key of your sandbox OCP account. You can get the value from **Settings → APIs** section in the OCP UI (use the **public API key** before the first dot `.` of the private API key).
 
 ---
 
