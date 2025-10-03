@@ -100,7 +100,7 @@ ocp app register
 
 - Install library dependency:
   ```sh
-  ocp directory install cmp_library_plan_opal_tool@1.0.0-dev.12 <PUBLIC_KEY_OCP_ACCOUNT>
+  ocp directory install cmp_library_plan_opal_tool@1.0.0-dev.12 2MGXhHri0kDvBLIYLjh8gw
   ```
 
 - View logs:
@@ -189,6 +189,8 @@ unsafe-perm=true
 ```
 
 👉 You’ll need access to the **ZaiusInc GitHub org** and must authorize it when creating your GitHub Personal Access Token.
+
+📧 To request access to the ZaiusInc GitHub organization, send an email to **access@episerver.net** including your GitHub username.
 
 ---
 
