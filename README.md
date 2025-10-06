@@ -197,6 +197,23 @@ unsafe-perm=true
 
 ---
 
+## How to Create a Personal Access Token (Classic) in GitHub
+
+1. Go to **[GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)](https://github.com/settings/tokens)**.
+2. Click **“Generate new token (classic)”**.
+3. Provide a **note** (e.g., “OCP deployment”) and set an **expiration period** (e.g., 90 days).
+4. Select these scopes:
+   - `read:packages`
+   - `write:packages`
+   - `repo` *(optional, if you need private repo access)*
+5. Click **Generate token** and copy the value.
+6. Use this token as `<GIT_PAT_CLASSIC_TOKEN>` in your `.npmrc`.
+
+ **Important:** Treat this token like a password — store it securely and never commit it to version control.
+
+
+---
+
 ## Summary
 This README provides:
 - Setup for OCP CLI
