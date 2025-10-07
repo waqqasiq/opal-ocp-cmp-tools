@@ -73,6 +73,7 @@ Once Node.js and Yarn are installed, run:
 ```sh
 # Install all dependencies, including dev dependencies
 yarn install
+```
 
 ---
 
