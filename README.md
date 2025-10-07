@@ -67,6 +67,13 @@ node -v
 yarn -v
 ```
 
+## 4a. Install Project Dependencies
+Once Node.js and Yarn are installed, run:
+
+```sh
+# Install all dependencies, including dev dependencies
+yarn install
+
 ---
 
 ## 5. Initialize the Repository
